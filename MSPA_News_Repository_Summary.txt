@@ -1,0 +1,9 @@
+WebAutomation.GoToWebPage.GoToWebPage BrowserInstance: Browser Url: Link
+SET Python TO $'''C:\\Users\\lonar\\AppData\\Local\\Programs\\Python\\Python39\\python.exe'''
+SET Code TO $'''C:\\Users\\lonar\\AppData\\Local\\Programs\\Python\\Python39\\Scripts\\Summarize.py'''
+SET Code2 TO $'''C:\\Users\\lonar\\AppData\\Local\\Programs\\Python\\Python39\\Scripts\\keywords.py'''
+Scripting.RunPowershellScript Script: $'''%Python% %Code% %Link%''' ScriptOutput=> PowershellOutput ScriptError=> ScriptError
+SET Recap TO PowershellOutput
+Scripting.RunPowershellScript Script: $'''%Python% %Code2% %Link%''' ScriptOutput=> PowershellOutput ScriptError=> ScriptError
+SET Keywords TO PowershellOutput
+DISABLE Display.ShowMessageDialog.ShowMessage Title: $'''Output''' Message: PowershellOutput Icon: Display.Icon.None Buttons: Display.Buttons.OK DefaultButton: Display.DefaultButton.Button1 IsTopMost: False ButtonPressed=> ButtonPressed

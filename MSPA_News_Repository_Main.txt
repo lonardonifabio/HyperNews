@@ -1,0 +1,24 @@
+WebAutomation.LaunchChrome.LaunchChrome Url: $'''http://rss.cnn.com/rss/cnn_latest.rss''' WindowState: WebAutomation.BrowserWindowState.Normal ClearCache: False ClearCookies: False Timeout: 60 BrowserInstance=> Browser
+WebAutomation.ExecuteJavascript BrowserInstance: Browser Javascript: $'''function ExecuteScript() { 
+window.scrollBy(0, 5000);
+
+/*your code here, return something (optionally); */ }''' Result=> Result
+WebAutomation.ExtractData.ExtractTable BrowserInstance: Browser Control: $'''html > body > div:eq(1) > div:eq(1) > ul > li''' ExtractionParameters: {[$'''h4 > a''', $'''Own Text''', $'''%''%''', $'''Value #1'''], [$'''div''', $'''Own Text''', $'''%''%''', $'''Value #2'''], [$'''h4 > a''', $'''Href''', $'''%''%''', $'''Value #3'''] } ExtractedData=> DataFromWebPage
+SET RowIndex TO 0
+SET RowXLS TO 1
+Excel.LaunchExcel.LaunchAndOpenUnderExistingProcess Path: $'''C:\\Users\\lonar\\Desktop\\NFT.xlsx''' Visible: True ReadOnly: False Instance=> ExcelInstance
+LOOP FOREACH CurrentItem IN DataFromWebPage
+    SET Title TO DataFromWebPage[RowIndex][0]
+    SET ShortTitle TO DataFromWebPage[RowIndex][1]
+    SET Link TO DataFromWebPage[RowIndex][2]
+    CALL Summarize
+    Excel.WriteToExcel.WriteCell Instance: ExcelInstance Value: Title Column: 1 Row: RowXLS
+    Excel.WriteToExcel.WriteCell Instance: ExcelInstance Value: ShortTitle Column: 2 Row: RowXLS
+    Excel.WriteToExcel.WriteCell Instance: ExcelInstance Value: Link Column: 3 Row: RowXLS
+    Excel.WriteToExcel.WriteCell Instance: ExcelInstance Value: Recap Column: 4 Row: RowXLS
+    Excel.WriteToExcel.WriteCell Instance: ExcelInstance Value: Keywords Column: 5 Row: RowXLS
+    Variables.IncreaseVariable Value: RowIndex IncrementValue: 1 IncreasedValue=> RowIndex
+    Variables.IncreaseVariable Value: RowXLS IncrementValue: 1 IncreasedValue=> RowXLS
+END
+Excel.CloseExcel.CloseAndSave Instance: ExcelInstance
+WebAutomation.CloseWebBrowser BrowserInstance: Browser
