@@ -1,0 +1,14 @@
+There are so many #news around us and it's very important summarize all of them. With this video I show you a #bot built with #PowerAutoamate and #Python code to historicize in a proper #XLS file the main news (Title, Subtitle, link) from your favorite news channel and generate an article's #summary and #keywords by #NLP libraries.
+This repository with all data history will help you to understand your current news, by a search with all identified keywords you can easily build the news historical background.
+Link Demo: https://www.youtube.com/watch?v=U1RgvFQgzfg
+🤟🏽Follow me if you are into #Technology and #Innovation:  https://lnkd.in/eekSTzi
+
+Next steps:
+- Open your MS PowerAutomate
+- Open the 2 flows into the TXT files
+- In the TXT Main file, CTRL-C
+- In PowerAutaomte, create new flow and paste the code with CTRL-V
+- In the TXT Summary file, CTRL-C
+- In PowerAutaomte, create a Subflow called Summarize and paste the code with CTRL-V
+- Downloads the 2 python codes into a folder and update items "set variable" in the subflow "Summarize"
+- Run the Flow
